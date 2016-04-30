@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hi what do you "
+        android:id="@+id/patch1"
+        android:layout_gravity="left"
+        android:textSize="20sp"
+        android:background="@drawable/sppech_bubble_a"
+    />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ye hui na baat mere dost sunao boss kya chal raha hai kaha hjo aajkal "
+        android:id="@+id/patch2"
+        android:layout_gravity="right"
+        android:background="@drawable/speech_bubble_b"
+        android:layout_weight="0.05" />
+</LinearLayout>
