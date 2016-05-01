@@ -279,6 +279,7 @@
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
     <string name="action_settings">Settings</string>
+    <string name="addgroup">AddGroup</string>
     <string name="adduser">Add User</string>
     <string name="app_name">ToolBarToolBar123</string>
     <string name="app_name1">whatsapp</string>
@@ -287,8 +288,10 @@
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="mesage">message</string>
+    <string name="refresh">Refresh</string>
     <string name="search">Search</string>
     <string name="status_bar_notification_info_overflow">999+</string>
+    <string name="title_activity_message">MessageActivity</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
     <style name="AlertDialog.AppCompat.Light" parent="Base.AlertDialog.AppCompat.Light"/>
     <style name="Animation.AppCompat.Dialog" parent="Base.Animation.AppCompat.Dialog"/>
@@ -308,6 +311,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
     <style name="Base.AlertDialog.AppCompat" parent="android:Widget">
         <item name="android:layout">@layout/abc_alert_dialog_material</item>

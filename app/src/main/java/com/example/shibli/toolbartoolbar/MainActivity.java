@@ -1,5 +1,6 @@
 package com.example.shibli.toolbartoolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -37,7 +38,12 @@ public class MainActivity extends AppCompatActivity  {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(MainActivity.this,Setting.class));
+
             return true;
+        }
+        if(id==R.id.message){
+            startActivity(new Intent(MainActivity.this,MessageActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
@@ -45,9 +51,9 @@ public class MainActivity extends AppCompatActivity  {
 
     public void setupViewPager(ViewPager upViewPager) {
         ViewPagerAdapter adapter=new ViewPagerAdapter(getSupportFragmentManager(),this);
-        adapter.add(new ContactFragment(),"ContactFragment");
-        adapter.add(new GroupFragment(),"GroupFragment");
-        adapter.add(new MessageFragment(),"Message");
+        adapter.add(new ContactFragment(),"ContactS");
+        adapter.add(new GroupFragment(),"Groups");
+        adapter.add(new MessageFragment(),"Messages");
         viewPager.setAdapter(adapter);
 
     }

@@ -24,6 +24,10 @@
         "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\drawable\\abc_cab_background_top_material.xml"
     },
     {
+        "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\sppech_bubble_a.9.png",
+        "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\src\\main\\res\\drawable\\sppech_bubble_a.9.png"
+    },
+    {
         "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_search_material.xml",
         "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\drawable\\abc_textfield_search_material.xml"
     },
@@ -66,6 +70,10 @@
     {
         "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_textfield_background_material.xml",
         "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\drawable\\abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\speech_bubble_b.9.png",
+        "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\src\\main\\res\\drawable\\speech_bubble_b.9.png"
     },
     {
         "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",

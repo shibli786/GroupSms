@@ -23,6 +23,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        iIII
+        <activity
+            android:name="com.example.shibli.toolbartoolbar.MessageActivity"
+            android:label="@string/title_activity_message"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

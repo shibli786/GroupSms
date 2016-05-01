@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\src\main\AndroidManifest.xml:2:1-22:12
+ADDED from C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\src\main\AndroidManifest.xml:2:1-27:12
 	package
 		ADDED from C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\src\main\AndroidManifest.xml:3:5-48
 		INJECTED from C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\src\main\AndroidManifest.xml
@@ -14,7 +14,7 @@ ADDED from C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\src\main\And
 		INJECTED from C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\src\main\AndroidManifest.xml
 application
-ADDED from C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\src\main\AndroidManifest.xml:5:5-20:19
+ADDED from C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\src\main\AndroidManifest.xml:5:5-25:19
 MERGED from [com.android.support:appcompat-v7:23.3.0] C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-vector-drawable:23.3.0] C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\AndroidManifest.xml:7:5-20
 MERGED from [com.android.support:support-v4:23.3.0] C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\AndroidManifest.xml:22:5-20
@@ -59,6 +59,14 @@ category#android.intent.category.LAUNCHER
 ADDED from C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\src\main\AndroidManifest.xml:17:17-77
 	android:name
 		ADDED from C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\src\main\AndroidManifest.xml:17:27-74
+activity#com.example.shibli.toolbartoolbar.MessageActivity
+ADDED from C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\src\main\AndroidManifest.xml:21:9-24:68
+	android:label
+		ADDED from C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\src\main\AndroidManifest.xml:23:13-59
+	android:theme
+		ADDED from C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\src\main\AndroidManifest.xml:24:13-56
+	android:name
+		ADDED from C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\src\main\AndroidManifest.xml:22:13-44
 uses-sdk
 INJECTED from C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:appcompat-v7:23.3.0] C:\Users\shibli\AndroidStudioProjects\ToolBarToolBar\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\AndroidManifest.xml:21:5-23:78

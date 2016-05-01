@@ -8,12 +8,19 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/adduser"
-        android:title="@string/adduser"
-        app:showAsAction="always" />
+
     <item
         android:id="@+id/search"
         android:title="@string/search"
-        app:showAsAction="always" />
-</menu>
+        app:showAsAction="always"
+        android:icon="@drawable/ic_search_white_24dp"/>
+    <item
+        android:id="@+id/adduser"
+        android:title="@string/adduser"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_person_add_white_24dp"/>
+    <item
+        android:id="@+id/refresh"
+        android:title="@string/refresh"
+        app:showAsAction="never"
+/></menu>

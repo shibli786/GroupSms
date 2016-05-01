@@ -8,4 +8,7 @@
     <string name="adduser">Add User</string>
     <string name="mesage">message</string>
     <string name="app_name1">whatsapp</string>
+    <string name="title_activity_message">MessageActivity</string>
+    <string name="refresh">Refresh</string>
+    <string name="addgroup">AddGroup</string>
 </resources>
