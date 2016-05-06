@@ -2,7 +2,7 @@ package com.example.shibli.toolbartoolbar;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +10,19 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import static android.view.Gravity.LEFT;
+import static android.view.Gravity.RIGHT;
+
 /**
  * Created by shibli on 4/30/2016.
  */
 
 
 
-public class MessageAdapter extends ArrayAdapter<MessageDataProvider> {;
+public class MessageAdapter extends ArrayAdapter<MessageDataProvider> {
+
+
+
 
 
 
@@ -61,13 +67,19 @@ public class MessageAdapter extends ArrayAdapter<MessageDataProvider> {;
 
 
 
-        tv.setBackgroundResource((pos) ? R.drawable.speech_bubble_b : R.drawable.sppech_bubble_a);
-        LinearLayout.LayoutParams params= new  LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        tv.setBackgroundResource((pos) ? R.drawable.ic_chat_bubble_white_24dp : R.drawable.ic_chat_bubble_white_24dp);
+       // LinearLayout.LayoutParams params= new  LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+      LinearLayout.LayoutParams params=(LinearLayout.LayoutParams)tv.getLayoutParams();
+
         if(!pos){
-            params.gravity= Gravity.LEFT;
+            params.gravity= LEFT;
+            Log.e("Sam", "valuessssssssssssss: "+pos+" "+getCount());
         }
         else{
-        params.gravity=Gravity.RIGHT;}
+            Log.e("Sam", "valuesssssssssssssss: " + pos + " " + getCount());
+
+            params.gravity= RIGHT;}
 
         tv.setLayoutParams(params);
 

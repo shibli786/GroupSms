@@ -1,5 +1,6 @@
 package com.example.shibli.databse;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -16,6 +17,40 @@ public class DatabaseScema {
 
 
     }
+
+    public void insertData(String name,String number1,String id,String number2){
+     SQLiteDatabase db=   shiblihelper.getWritableDatabase();
+        ContentValues cv= new ContentValues();
+        cv.put(Shiblihelper.CONTACT_NAME,name);
+        cv.put(Shiblihelper.CONTACT_NUMBER1,number1);
+        cv.put(Shiblihelper.CONTACT_NUMBER2,number2);
+        cv.put(Shiblihelper.CONTACT_ID,id);
+        //insert more data
+
+        db.insert(Shiblihelper.CONTACT_TABLE_NAME,Shiblihelper.CONTACT_NUMBER2,cv);
+
+
+    }
+    public void updateData(String name,String id,String number1,String number2){
+        SQLiteDatabase db=   shiblihelper.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(Shiblihelper.CONTACT_NAME, name);
+        cv.put(Shiblihelper.CONTACT_NUMBER1,number1);
+        cv.put(Shiblihelper.CONTACT_NUMBER2,number2);
+
+        db.update(Shiblihelper.CONTACT_TABLE_NAME, cv, Shiblihelper.CONTACT_ID + "= ?", new String[] {id});
+
+    }
+    public void SearchData(){
+        SQLiteDatabase db=   shiblihelper.getWritableDatabase();
+
+    }
+    public void getData(){
+        SQLiteDatabase db=   shiblihelper.getWritableDatabase();
+
+    }
+
 
 
     // inner database helper class

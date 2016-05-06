@@ -8,6 +8,10 @@
         "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\drawable-xxhdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
+        "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_chat_bubble_white_24dp.png",
+        "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\src\\main\\res\\drawable-xxhdpi\\ic_chat_bubble_white_24dp.png"
+    },
+    {
         "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png",
         "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\drawable-xxhdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png"
     },

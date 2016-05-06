@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
-import android.widget.Toast;
 
 public class SMSReceiver extends BroadcastReceiver {
     public SMSReceiver() {
@@ -25,6 +24,9 @@ public class SMSReceiver extends BroadcastReceiver {
         String str = "";
         if (bundle != null) {
             // Retrieve the SMS.
+            String address = "";
+            String message="";
+            long time ;
             byte[] pdus = (byte[]) bundle.get("pdus");
             msgs = new SmsMessage[pdus.length];
             for (int i = 0; i < msgs.length; i++) {
@@ -32,14 +34,20 @@ public class SMSReceiver extends BroadcastReceiver {
                         android.provider.Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
 
 
+             time=     msgs[i].getTimestampMillis();
+             message+=   msgs[i].getDisplayMessageBody();
+             address=   msgs[i].getOriginatingAddress();
+
                 // In case of a particular App / Service.
                 //if(msgs[i].getOriginatingAddress().equals("+91XXX"))
                 //{
 
                 //}
             }
-            // Display the SMS as Toast.
-            Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+            //saveData(time,message,address);
+            //get Adapter and set Chat text
+
+           // Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
         }
     }
 
