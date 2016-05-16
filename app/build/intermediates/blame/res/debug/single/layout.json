@@ -1,15 +1,19 @@
 [
     {
+        "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\message_list.xml",
+        "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\src\\main\\res\\layout\\message_list.xml"
+    },
+    {
         "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple_overlay_action_mode.xml",
         "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
     },
     {
-        "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_list_item.xml",
-        "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_activity_chooser_view_list_item.xml"
-    },
-    {
         "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_setting.xml",
         "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\src\\main\\res\\layout\\content_setting.xml"
+    },
+    {
+        "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_list_item.xml",
+        "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_activity_chooser_view_list_item.xml"
     },
     {
         "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
@@ -20,12 +24,12 @@
         "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\notification_media_cancel_action.xml"
     },
     {
-        "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
-        "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_search_view.xml"
-    },
-    {
         "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_message.xml",
         "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\src\\main\\res\\layout\\fragment_message.xml"
+    },
+    {
+        "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
+        "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_search_view.xml"
     },
     {
         "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_message.xml",
@@ -34,6 +38,10 @@
     {
         "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\single_row_message.xml",
         "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\src\\main\\res\\layout\\single_row_message.xml"
+    },
+    {
+        "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\single_row_select.xml",
+        "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\src\\main\\res\\layout\\single_row_select.xml"
     },
     {
         "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_up_container.xml",
@@ -76,6 +84,10 @@
         "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\layout\\design_navigation_item.xml"
     },
     {
+        "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_groupmembers.xml",
+        "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\src\\main\\res\\layout\\content_groupmembers.xml"
+    },
+    {
         "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_message.xml",
         "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\src\\main\\res\\layout\\activity_message.xml"
     },
@@ -112,6 +124,14 @@
         "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\notification_template_part_chronometer.xml"
     },
     {
+        "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_groupmembers.xml",
+        "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\src\\main\\res\\layout\\activity_groupmembers.xml"
+    },
+    {
+        "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_select_contacts_from_list.xml",
+        "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\src\\main\\res\\layout\\content_select_contacts_from_list.xml"
+    },
+    {
         "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_subheader.xml",
         "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\layout\\design_navigation_item_subheader.xml"
     },
@@ -126,6 +146,10 @@
     {
         "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_header.xml",
         "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\layout\\design_navigation_item_header.xml"
+    },
+    {
+        "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_select_contacts_from_list.xml",
+        "source": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\src\\main\\res\\layout\\activity_select_contacts_from_list.xml"
     },
     {
         "merged": "C:\\Users\\shibli\\AndroidStudioProjects\\ToolBarToolBar\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow.xml",

@@ -15,6 +15,7 @@ public class MessageHelper {
     Context context;
 
     MessageHelper(Context context) {
+        this.context=context;
 
     }
 
@@ -34,8 +35,8 @@ public class MessageHelper {
             public void onReceive(Context arg0, Intent arg1) {
                 switch (getResultCode()) {
                     case Activity.RESULT_OK:
-                        //  Toast.makeText(context.getBaseContext(), "SMS sent",
-                        ///     Toast.LENGTH_SHORT).show();
+                         Toast.makeText(context, "SMS sent",
+                            Toast.LENGTH_SHORT).show();
                         break;
                     case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
                         // Toast.makeText(context.getBaseContext(), "Generic failure",

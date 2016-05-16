@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ToolBarToolBar123</string>
+    <string name="app_name">Notification App</string>
     <string name="action_settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -11,4 +11,7 @@
     <string name="title_activity_message">MessageActivity</string>
     <string name="refresh">Refresh</string>
     <string name="addgroup">AddGroup</string>
+    <string name="title_activity_select_contacts_from_list">SelectContactsFromList</string>
+    <string name="notification">Group Notifier</string>
+    <string name="title_activity_groupmembers">GroupmembersActivity</string>
 </resources>
