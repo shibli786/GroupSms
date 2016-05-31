@@ -32,6 +32,18 @@ public class ContactDetail implements  Comparable {
         return this.name.compareTo(d.name);
 
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof ContactDetail) {
+            if (name.equals(((ContactDetail) o).name) && number1.equals(((ContactDetail) o).number1)) {
+
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 

@@ -1,13 +1,16 @@
 package com.example.shibli.toolbartoolbar;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,9 +33,11 @@ public class MessageActivity extends AppCompatActivity {
     ListView lv;
     EditText et;
     Button bt;
+    int pos;
     boolean isGroup;
     MessageAdapter adapter;
     BroadcastReceiver broadcastReceiver;
+    int count = 0;
 
     public static Context getContext() {
         return context;
@@ -63,19 +68,26 @@ public class MessageActivity extends AppCompatActivity {
         recipient = getIntent().getExtras().getString("groupname");
         getSupportActionBar().setTitle(recipient);
         adapter = (MessageAdapter) Adapter.newAdapter(recipient, MessageActivity.this);
+        lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+
         lv.setAdapter(adapter);
+
         lv.setSelection(adapter.getCount() - 1);
 
         lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-
 
                 return true;
             }
         });
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
+            }
+        });
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +112,7 @@ public class MessageActivity extends AppCompatActivity {
 
                     } else {
                         ArrayList<String> allGroupNumber = scema.getAllGroupNumbers(recipient);
+                        Log.e("SAM group size",allGroupNumber.size()+"");
                         for (String number : allGroupNumber) {
                             messageHelper.sendSMS(number, text);
                         }
@@ -111,8 +124,11 @@ public class MessageActivity extends AppCompatActivity {
                     MessageListDataProvider messageListDataProvider = new MessageListDataProvider(recipient, System.currentTimeMillis(), text);
 
                     if (scema.searchRecipient(messageListDataProvider)) {
+
                         scema.updateMessageList(messageListDataProvider);
-                        // Toast.makeText(MessageActivity.this,"")
+
+
+                         Toast.makeText(MessageActivity.this,"hai hai hai ",Toast.LENGTH_LONG).show();
 
                     } else {
                         scema.insertMessageList(messageListDataProvider);
@@ -125,7 +141,6 @@ public class MessageActivity extends AppCompatActivity {
         });
 
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -135,9 +150,8 @@ public class MessageActivity extends AppCompatActivity {
                 //       .setAction("Action", null).show();
                 String text = et.getText().toString();
 
-                if (text.equals("")) {
-
-                } else {
+                if (text.equals("")) ;
+                else {
                     MessageDataProvider m = new MessageDataProvider(text.trim(), true, System.currentTimeMillis());
                     adapter.add(m);
 
@@ -164,14 +178,19 @@ public class MessageActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add("Delete All Messages");
+
         MenuInflater menuInflater = getMenuInflater();
+
+
         DatabaseScema scema = new DatabaseScema(MessageActivity.this);
         Group group = scema.getGroup(recipient);
         if (group == null) {
-            return false;
+            return true;
         }
-        menuInflater.inflate(R.menu.add_members, menu);
         isGroup = true;
+        menuInflater.inflate(R.menu.add_members, menu);
+
         return true;
 
     }
@@ -185,6 +204,40 @@ public class MessageActivity extends AppCompatActivity {
                 i.putExtra("groupname", recipient);
                 startActivity(i);
             }
+
+        }
+        if (item.getTitle().equals("Delete All Messages")) {
+
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MessageActivity.this);
+            builder.setTitle("Are you sure you want to continue?");
+
+            builder.setPositiveButton(
+                    "Delete",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            DatabaseScema scema = new DatabaseScema(MessageActivity.this);
+                            scema.deleteAllMessage(recipient);
+                            adapter = (MessageAdapter) Adapter.newAdapter(recipient, MessageActivity.this);
+                            lv.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+
+                            dialog.cancel();
+                        }
+                    });
+
+            builder.setNegativeButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert11 = builder.create();
+            alert11.show();
+
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -208,12 +261,12 @@ public class MessageActivity extends AppCompatActivity {
                 Toast.makeText(context, "message Received", Toast.LENGTH_LONG).show();
 
                 SMSInfo sms = ParseSMS.readSMSFromBroadCastReceiver(context, intent);
-                MessageDataProvider m=new MessageDataProvider(sms.SMS, true, sms.time);
+                MessageDataProvider m = new MessageDataProvider(sms.SMS, true, sms.time);
 
                 adapter.add(m);
-                DatabaseScema scema= new DatabaseScema(MessageActivity.this);
-                String name=scema.getContactNameByNumber(sms.phNo);
-                scema.insertMessage(m,name);
+                DatabaseScema scema = new DatabaseScema(MessageActivity.this);
+                String name = scema.getContactNameByNumber(sms.phNo);
+                scema.insertMessage(m, name);
 
 
             }

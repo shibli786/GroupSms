@@ -3,6 +3,7 @@ package com.example.shibli.databse;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -22,7 +23,8 @@ import java.util.TreeSet;
 /**
  * Created by shibli on 4/25/2016.
  */
-public class DatabaseScema {
+public class
+        DatabaseScema {
     private static final Uri URI = ContactsContract.Contacts.CONTENT_URI;
     private static final Uri PURI = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
     private static final Uri EURI = ContactsContract.CommonDataKinds.Email.CONTENT_URI;
@@ -47,9 +49,11 @@ public class DatabaseScema {
 
     }
 
+
     public void insertData(String name, String number1, String id, String number2) {
-        String sub = number1.substring(0, 3);
-        if (!sub.equals("+91")) number1 = "+91" + number1;
+        String sub = number1.substring(0, 1);
+        if (!sub.equals("+")) number1 = "+91" + number1;
+
         ContentValues cv = new ContentValues();
         cv.put(Shiblihelper.CONTACT_NAME, name);
         cv.put(Shiblihelper.CONTACT_NUMBER1, number1);
@@ -57,11 +61,21 @@ public class DatabaseScema {
         cv.put(Shiblihelper.CONTACT_ID, id);
         //insert more data
 
+
         db = shiblihelper.getWritableDatabase();
+        //
 
-        db.insert(Shiblihelper.CONTACT_TABLE_NAME, Shiblihelper.CONTACT_NUMBER2, cv);
+        long a = db.insert(Shiblihelper.CONTACT_TABLE_NAME, null, cv);
 
 
+        if (a < 0) {
+            Log.i("Sam", "Already EXISt");
+
+        } else {
+            Log.e("Sam", "Inserted");
+
+        }
+        //  db.close();
     }
 
 
@@ -105,31 +119,28 @@ public class DatabaseScema {
 
 
     public Group getGroup(String gname) {
-        TreeSet<Group> ts = new TreeSet<Group>();
-        SQLiteDatabase db = shiblihelper.getReadableDatabase();
+        SQLiteDatabase db = shiblihelper.getWritableDatabase();
         Cursor cursor = db.query(Shiblihelper.GROUP_TABLE_NAME, null, Shiblihelper.GROUP_NAME + "=?", new String[]{gname
 
         }, null, null, null);
         String name = "", id = "";
-       if(cursor.getCount()>0){
-           while (cursor.moveToNext()) {
+        if (cursor.getCount() > 0) {
+            Log.e("SAAAAAAM","andar agayaskjkjcsksdkkdkkd");
+            while (cursor.moveToNext()) {
 
-               name = cursor.getString(cursor.getColumnIndex(Shiblihelper.GROUP_NAME));
-               id = cursor.getString(cursor.getColumnIndex(Shiblihelper.GROUP_ID));
-               return new Group(name, Integer.parseInt(id));
-
-           }
-
-       }
-
-           return  null;
+                name = cursor.getString(cursor.getColumnIndex(Shiblihelper.GROUP_NAME));
+                id = cursor.getString(cursor.getColumnIndex(Shiblihelper.GROUP_ID));
+                return new Group(name, Integer.parseInt(id));
 
 
+            }
 
+        }
+
+        return null;
 
 
     }
-
 
 
     public void insertMessage(MessageDataProvider messageDataProvider, String recipient) {
@@ -141,10 +152,10 @@ public class DatabaseScema {
         db = shiblihelper.getWritableDatabase();
         long l = db.insert(Shiblihelper.MESSAGE_TABLE_NAME, null, cv);
         if (l < 0) {
-            Toast.makeText(context, "Unsuccessfull", Toast.LENGTH_LONG).show();
+         //   Toast.makeText(context, "Unsuccessfull", Toast.LENGTH_LONG).show();
 
         } else {
-            Toast.makeText(context, "successfull", Toast.LENGTH_LONG).show();
+           // Toast.makeText(context, "successfull", Toast.LENGTH_LONG).show();
 
         }
     }
@@ -163,7 +174,7 @@ public class DatabaseScema {
             String messages = cursor.getString(cursor.getColumnIndex(Shiblihelper.MESSAGES));
             String position = cursor.getString(cursor.getColumnIndex(Shiblihelper.POSITION));
             String time = cursor.getString(cursor.getColumnIndex(Shiblihelper.TIMESTAMP));
-            al.add(new MessageDataProvider(messages, position.equals("1") , Long.parseLong(time)));
+            al.add(new MessageDataProvider(messages, position.equals("1"), Long.parseLong(time)));
 
         }
         cursor.close();
@@ -189,7 +200,7 @@ public class DatabaseScema {
     public boolean searchGroup(String recipient) {
         SQLiteDatabase db = shiblihelper.getWritableDatabase();
         return db.query(Shiblihelper.GROUP_TABLE_NAME, new String[]{Shiblihelper.GROUP_NAME},
-                Shiblihelper.GROUP_NAME + "=?", new String[]{recipient}, null, null, null).getCount()>0;
+                Shiblihelper.GROUP_NAME + "=?", new String[]{recipient}, null, null, null).getCount() > 0;
 
 
     }
@@ -211,12 +222,17 @@ public class DatabaseScema {
 
     //get AllContact detail in an arraayList
     public ArrayList<ContactDetail> getAllContacts() {
-        ArrayList<ContactDetail> al = new ArrayList<ContactDetail>();
-        TreeSet<ContactDetail> ts = new TreeSet<ContactDetail>();
-        if (!isPopulate) {
-            isPopulate = true;
+        SharedPreferences sharedPreferences = context.getSharedPreferences("storeInfo", Context.MODE_PRIVATE);
+
+        if (!sharedPreferences.contains("isPopulated")) {
+            db=shiblihelper.getWritableDatabase();
+            db.delete(Shiblihelper.CONTACT_TABLE_NAME,"1",null);
             readContactData();
         }
+
+
+        ArrayList<ContactDetail> al = new ArrayList<ContactDetail>();
+        TreeSet<ContactDetail> ts = new TreeSet<ContactDetail>();
 
 
         TreeSet<ContactDetail> treeset = new TreeSet<ContactDetail>();
@@ -228,6 +244,10 @@ public class DatabaseScema {
 
 
         Cursor cursor = db.query(Shiblihelper.CONTACT_TABLE_NAME, col, null, null, null, null, null);
+
+
+        Log.e("SAM", cursor.getCount() + "");
+
         while (cursor.moveToNext()) {
             String name = cursor.getString(cursor.getColumnIndex(Shiblihelper.CONTACT_NAME));
             String number1 = cursor.getString(cursor.getColumnIndex(Shiblihelper.CONTACT_NUMBER1));
@@ -238,7 +258,7 @@ public class DatabaseScema {
             // al.add(contacts);
 
         }
-        Toast.makeText(context, treeset.size() + " ", Toast.LENGTH_LONG);
+        Toast.makeText(context, treeset.size() + " ", Toast.LENGTH_LONG).show();
         al = new ArrayList<ContactDetail>(ts);
 
         return al;
@@ -247,23 +267,26 @@ public class DatabaseScema {
 
 
     public ArrayList<ContactDetail> readContactData() {
+
+
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("storeInfo", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isPopulated", true);
+
+        editor.commit();
         ArrayList<ContactDetail> al1 = new ArrayList<ContactDetail>();
 
 
         /*********** Reading Contacts Name And Number **********/
 
         String phoneNumber = "";
-        ContentResolver cr = context
-                .getContentResolver();
+        ContentResolver cr = context.getContentResolver();
 
         //Query to get contact name
 
-        Cursor cur = cr
-                .query(ContactsContract.Contacts.CONTENT_URI,
-                        null,
-                        null,
-                        null,
-                        null);
+        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,null,null,null,null);
 
         // If data data found in contacts
         Log.i("AutocompleteContacts", "Reading   contacts........" + cur.getCount());
@@ -273,30 +296,23 @@ public class DatabaseScema {
             String no = "";
             name = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
             String id = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
-            // String val=cur.getString(cur.getColumnIndex());
-//if(Integer.parseInt(val)>0){
-//     no=cur.getString(cur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-//}
 
             if (Integer.parseInt(cur.getString(cur.getColumnIndex(
                     ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
-                Cursor pCur = cr.query(
-                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                        null,
-                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
-                        new String[]{id}, null);
+                Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",new String[]{id}, null);
                 while (pCur.moveToNext()) {
-                    String phoneNo = pCur.getString(pCur.getColumnIndex(
-                            ContactsContract.CommonDataKinds.Phone.NUMBER));
+                    String phoneNo = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
-                    Log.i("AutocompleteContacts", name + "  " + id + " " + phoneNo);
+                    Log.i("AutocompleteContacts", name + "  " + id + "     " + phoneNo);
                     al1.add(new ContactDetail(name, " v", phoneNo));
-                    insertData(name, phoneNo, id, "");
+
+                   // if (!searchPhoneNo(phoneNo))
+                       insertData(name, phoneNo, id, "");
 
 
                 }
 
-                pCur.close();
+                // pCur.close();
 
             }
         }
@@ -305,8 +321,27 @@ public class DatabaseScema {
         return al1;
     }
 
+    private boolean searchPhoneNo(String phoneNo1) {
+        Log.e("Tag", "searchPhoneNo: " + phoneNo1);
+
+        db = shiblihelper.getWritableDatabase();
+        Cursor cursor = db.query(Shiblihelper.CONTACT_TABLE_NAME, new String[]{Shiblihelper.CONTACT_NUMBER1,Shiblihelper.CONTACT_NAME}, Shiblihelper.CONTACT_NUMBER1 + "+?", new String[]{phoneNo1}, null, null, null);
+
+        if (cursor.getCount() > 0) {
+            while(cursor.moveToNext()){
+           String s= cursor.getString(cursor.getColumnIndex(Shiblihelper.CONTACT_NUMBER1));
+            Log.e("Tag", "searchPhoneNo found   " + s);}
+
+
+            return true;
+        }
+        return false;
+    }
+
 
     public void insertMessageList(MessageListDataProvider messageListDataProvider) {
+
+
         ContentValues cv = new ContentValues();
         cv.put(Shiblihelper.RECIPIENT, messageListDataProvider.getRecipient());
         cv.put(Shiblihelper.TIMESTAMP, messageListDataProvider.getTimeStamp());
@@ -338,9 +373,9 @@ public class DatabaseScema {
         long in = db.update(Shiblihelper.MESSAGE_LIST_TABLE, cv, Shiblihelper.RECIPIENT + "= ?", new String[]{messageListDataProvider.getRecipient()});
 
         if (in < 0) {
-            Toast.makeText(context, "unSuccessfull update", Toast.LENGTH_LONG).show();
+         //   Toast.makeText(context, "unSuccessfull update", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(context, "Successfull update", Toast.LENGTH_LONG).show();
+          //  Toast.makeText(context, "Successfull update", Toast.LENGTH_LONG).show();
 
 
         }
@@ -366,8 +401,8 @@ public class DatabaseScema {
         db = shiblihelper.getReadableDatabase();
         Cursor cursor = db.query(Shiblihelper.MESSAGE_LIST_TABLE, new String[]{Shiblihelper.RECIPIENT}, Shiblihelper.RECIPIENT + "=?", new String[]{messageListDataProvider.getRecipient()}, null, null, null);
         if (cursor.getCount() > 0) {
-            Toast.makeText(context, "found", Toast.LENGTH_LONG).show();
-            return true;
+            //Toast.makeText(context, "found", Toast.LENGTH_LONG).show();
+           return true;
         }
         return false;
 
@@ -385,20 +420,21 @@ public class DatabaseScema {
             }
         return number;
     }
+
+
     public void insertIntoGroupMemberTable(ContactDetail contactDetail, String group) {
-        db  =shiblihelper.getWritableDatabase();
+        db = shiblihelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(Shiblihelper.CONTACT_NUMBER1, contactDetail.getNumber1());
 
         cv.put(Shiblihelper.CONTACT_NAME, contactDetail.getName());
-        cv.put(Shiblihelper.GROUP_NAME,group);
-       long val= db.insert(Shiblihelper.GROUP_MEMBERS_TABLE,null,cv);
-        if(val<0){
-            Toast.makeText(context,"failed to add",Toast.LENGTH_LONG).show();
+        cv.put(Shiblihelper.GROUP_NAME, group);
+        long val = db.insert(Shiblihelper.GROUP_MEMBERS_TABLE, null, cv);
+        if (val < 0) {
+            Toast.makeText(context, "failed to add", Toast.LENGTH_LONG).show();
 
-        }
-        else{
-            Toast.makeText(context,"Member  added",Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(context, "Member  added", Toast.LENGTH_LONG).show();
 
 
         }
@@ -407,16 +443,15 @@ public class DatabaseScema {
     }
 
     public ArrayList<ContactDetail> getGroupMembers(String groupname) {
-        db=shiblihelper.getWritableDatabase();
-        ArrayList<ContactDetail> al= new ArrayList<ContactDetail>();
-       Cursor cursor= db.query(Shiblihelper.GROUP_MEMBERS_TABLE, new String[]{Shiblihelper.CONTACT_NAME, Shiblihelper.CONTACT_NUMBER1}, Shiblihelper.GROUP_NAME + "=?", new String[]{groupname}, null, null, null);
-        if(cursor.getCount()<1){
+        db = shiblihelper.getWritableDatabase();
+        ArrayList<ContactDetail> al = new ArrayList<ContactDetail>();
+        Cursor cursor = db.query(Shiblihelper.GROUP_MEMBERS_TABLE, new String[]{Shiblihelper.CONTACT_NAME, Shiblihelper.CONTACT_NUMBER1}, Shiblihelper.GROUP_NAME + "=?", new String[]{groupname}, null, null, null);
+        if (cursor.getCount() < 1) {
             return null;
 
 
-        }
-        else{
-            while(cursor.moveToNext()){
+        } else {
+            while (cursor.moveToNext()) {
                 String name = cursor.getString(cursor.getColumnIndex(Shiblihelper.CONTACT_NAME));
                 String number1 = cursor.getString(cursor.getColumnIndex(Shiblihelper.CONTACT_NUMBER1));
 //            String number2 = cursor.getString(cursor.getColumnIndex(Shiblihelper.CONTACT_NUMBER2));
@@ -432,57 +467,76 @@ public class DatabaseScema {
 
     public String getNumber(String recipient) {
 
-        db=shiblihelper.getWritableDatabase();
-        Cursor cursor=db.query(Shiblihelper.CONTACT_TABLE_NAME, new String[]{Shiblihelper.CONTACT_NUMBER1}, Shiblihelper.CONTACT_NAME + "=?", new String[]{recipient}, null, null, null);
-      String number=recipient;
-        while(cursor.moveToNext()){
-            number=cursor.getString(cursor.getColumnIndex(Shiblihelper.CONTACT_NUMBER1));
+        db = shiblihelper.getWritableDatabase();
+        Cursor cursor = db.query(Shiblihelper.CONTACT_TABLE_NAME, new String[]{Shiblihelper.CONTACT_NUMBER1}, Shiblihelper.CONTACT_NAME + "=?", new String[]{recipient}, null, null, null);
+        String number = recipient;
+        while (cursor.moveToNext()) {
+            number = cursor.getString(cursor.getColumnIndex(Shiblihelper.CONTACT_NUMBER1));
 
         }
         return number;
     }
 
     public ArrayList<String> getAllGroupNumbers(String recipient) {
-        ArrayList<String> al= new ArrayList<String>();
-        db=shiblihelper.getWritableDatabase();
-        Cursor cursor=db.query(Shiblihelper.GROUP_MEMBERS_TABLE, new String[]{Shiblihelper.CONTACT_NUMBER1}, Shiblihelper.CONTACT_NAME + "=?", new String[]{recipient}, null, null, null);
-        String number=recipient;
-        while(cursor.moveToNext()){
-            number=cursor.getString(cursor.getColumnIndex(Shiblihelper.CONTACT_NUMBER1));
+        ArrayList<String> al = new ArrayList<String>();
+        db = shiblihelper.getWritableDatabase();
+        Cursor cursor = db.query(Shiblihelper.GROUP_MEMBERS_TABLE, new String[]{Shiblihelper.CONTACT_NUMBER1}, Shiblihelper.GROUP_NAME + "=?", new String[]{recipient}, null, null, null);
+        String number = recipient;
+        while (cursor.moveToNext()) {
+            number = cursor.getString(cursor.getColumnIndex(Shiblihelper.CONTACT_NUMBER1));
             al.add(number);
 
         }
         return al;
 
     }
-    public String getMessageListID( String name){
-        db=shiblihelper.getWritableDatabase();
-        Cursor cursor=db.query(Shiblihelper.MESSAGE_LIST_TABLE,new String[]{Shiblihelper.MESSAGE_LIST_ID},Shiblihelper.RECIPIENT+"=?",new String[]{name},null,null,null);
 
-       String id = null;
-        while (cursor.moveToNext()){
-             id=cursor.getString(cursor.getColumnIndex(Shiblihelper.MESSAGE_LIST_ID));
+    public String getMessageListID(String name) {
+        db = shiblihelper.getWritableDatabase();
+        Cursor cursor = db.query(Shiblihelper.MESSAGE_LIST_TABLE, new String[]{Shiblihelper.MESSAGE_LIST_ID}, Shiblihelper.RECIPIENT + "=?", new String[]{name}, null, null, null);
+
+        String id = null;
+        while (cursor.moveToNext()) {
+            id = cursor.getString(cursor.getColumnIndex(Shiblihelper.MESSAGE_LIST_ID));
         }
-cursor.close();
+        cursor.close();
         return id;
     }
 
     public boolean deleteListMessage(String recipient) {
-      db=  shiblihelper.getWritableDatabase();
-     String id= getMessageListID(recipient);
-     return db.delete(Shiblihelper.MESSAGE_LIST_TABLE,Shiblihelper.MESSAGE_LIST_ID+"=?",new String[]{id})>0;
+        db = shiblihelper.getWritableDatabase();
+        String id = getMessageListID(recipient);
+        return db.delete(Shiblihelper.MESSAGE_LIST_TABLE, Shiblihelper.MESSAGE_LIST_ID + "=?", new String[]{id}) > 0;
 
     }
 
     public boolean deleteContact(String name) {
-        return db.delete(Shiblihelper.CONTACT_TABLE_NAME,Shiblihelper.CONTACT_NAME+"=?",new String[]{name})>0;
+        db=shiblihelper.getWritableDatabase();
+        return db.delete(Shiblihelper.CONTACT_TABLE_NAME, Shiblihelper.CONTACT_NAME + "=?", new String[]{name}) > 0;
 
     }
 
     public boolean deleteGroup(String groupName) {
-        db=shiblihelper.getWritableDatabase();
-        return db.delete(Shiblihelper.GROUP_TABLE_NAME,Shiblihelper.GROUP_NAME+"=?",new String[]{groupName})>0;
+        db = shiblihelper.getWritableDatabase();
+        db.delete(Shiblihelper.GROUP_MEMBERS_TABLE,Shiblihelper.GROUP_NAME+"=?",new String[]{groupName});
+        return db.delete(Shiblihelper.GROUP_TABLE_NAME, Shiblihelper.GROUP_NAME + "=?", new String[]{groupName}) > 0;
 
+    }
+
+
+
+    public void deleteAllMessage(String recipient) {
+        db=shiblihelper.getWritableDatabase();
+       int a= db.delete(Shiblihelper.MESSAGE_TABLE_NAME,Shiblihelper.RECIPIENT + "=?" ,new String[]{
+                recipient
+        });
+        if(a>0){
+            Toast.makeText(context,"Deleted Successfully",Toast.LENGTH_LONG).show();
+        }
+        else
+            Toast.makeText(context,"Failed,Try Again",Toast.LENGTH_LONG).show();
+
+        db.close();
     }
 
     // inner database helper class
@@ -492,7 +546,7 @@ cursor.close();
         //database information
         private static final String CONTACT_DATABSE_NAME = "my_database";
         private static final String CONTACT_TABLE_NAME = "mycontacts_table";
-        private static final int CONTACT_DATABASE_VERSION = 40;
+        private static final int CONTACT_DATABASE_VERSION = 42;
 
         //ContactFragment table columns
         private static final String CONTACT_NAME = "Name";
@@ -515,6 +569,7 @@ cursor.close();
         private static final String RECIPIENT = "user";
 
         // 1:n table
+        //each contact will be assign in any group
         private static final String GROUP_MEMBERS_TABLE = "group_member";
         private static final String MEMBER_ID = "member_id";
         private static final String CREATE_GROUP_MEMBERS_TABLE = "CREATE TABLE " +
@@ -531,19 +586,13 @@ cursor.close();
         private static final String MESSAGE_LIST_TABLE = "message_list_table";
 
 
-
-
         private static final String CREATE_MESSAGE_LIST_TABLE = "CREATE TABLE " + MESSAGE_LIST_TABLE + "(" + MESSAGE_LIST_ID +
                 " INTEGER PRIMARY KEY AUTOINCREMENT ," + RECIPIENT + " VARCHAR(40) ," + TIMESTAMP + " INTEGER ," + LAST_MESSAGE + " TEXt);";
-
-
 
 
         private static final String CREATE_MESSAGE_TABLE = "CREATE TABLE " + MESSAGE_TABLE_NAME + "(" + MESSAGE_ID +
                 " INTEGER PRIMARY KEY AUTOINCREMENT, " + MESSAGES + " TEXT, " + POSITION +
                 " INTEGER ," + TIMESTAMP + " INTEGER ," + RECIPIENT + " VARCHAR(40));";
-
-
 
 
         private static final String CREATE_CONTACT_TABLE = "CREATE TABLE " +
@@ -560,18 +609,10 @@ cursor.close();
         Context con;
 
 
-
-
-
-
-
-
-
         public Shiblihelper(Context context) {
             super(context, CONTACT_DATABSE_NAME, null, CONTACT_DATABASE_VERSION);
             con = context;
         }
-
 
 
         @Override
@@ -605,7 +646,7 @@ cursor.close();
                 db.execSQL("DROP TABLE if exists " + MESSAGE_LIST_TABLE);
 
                 onCreate(db);
-                Log.e("Sam", "table created in onupgrade");
+           //     Log.e("Sam", "table created in onupgrade");
             } catch (Exception e) {
                 Toast.makeText(con, e + "", Toast.LENGTH_SHORT).show();
 

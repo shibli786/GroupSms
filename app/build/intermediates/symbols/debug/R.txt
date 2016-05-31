@@ -599,10 +599,10 @@ int id action_menu_presenter 0x7f0c0003
 int id action_mode_bar 0x7f0c0057
 int id action_mode_bar_stub 0x7f0c0056
 int id action_mode_close_button 0x7f0c003c
-int id action_settings 0x7f0c0096
+int id action_settings 0x7f0c0095
 int id activity_chooser_view_content 0x7f0c003d
 int id addgroup 0x7f0c009a
-int id addmembers 0x7f0c0095
+int id addmembers 0x7f0c0096
 int id adduser 0x7f0c0098
 int id alertTitle 0x7f0c0049
 int id always 0x7f0c0033

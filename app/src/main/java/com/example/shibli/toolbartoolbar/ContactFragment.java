@@ -1,8 +1,10 @@
 package com.example.shibli.toolbartoolbar;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -36,19 +38,17 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class ContactFragment extends Fragment {
-    DatabaseScema scema;
-
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    static ArrayList<ContactDetail> al;
+    DatabaseScema scema;
     ListView lv;
     View view;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     private OnFragmentInteractionListener mListener;
     private String m_text = "";
     private String number = "";
@@ -92,39 +92,41 @@ public class ContactFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_contact, container, false);
         return view;
     }
-   static  ArrayList<ContactDetail> al;
-    public  ArrayList<ContactDetail> retunAllContact(){
+
+    public ArrayList<ContactDetail> retunAllContact() {
         return al;
     }
+    ContactAdapter adapter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         lv = (ListView) view.findViewById(R.id.contact_listView);
-         scema = new DatabaseScema(getContext());
+        scema = new DatabaseScema(getContext());
+
         al = scema.getAllContacts();
 
-        final ContactAdapter adapter = new ContactAdapter(getActivity(), R.layout.single_row_contact);
+         adapter = new ContactAdapter(getActivity(), R.layout.single_row_contact);
         lv.setAdapter(adapter);
 
         // Toast.makeText(getContext(),al.size(),Toast.LENGTH_LONG).show();
         Log.i("Tag", "onActivityCreated: " + al.size());
-int k=0;
+        int k = 0;
 
         for (ContactDetail detail : al) {
-           // k++;
+            // k++;
             adapter.add(detail);
 
             ///remove this condition after testing
-           // if(k>=16)break;
+            // if(k>=16)break;
         }
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView tv= (TextView) view.findViewById(R.id.contact_name);
-                String name=tv.getText().toString();
-                Intent i= new Intent(getActivity(),MessageActivity.class);
-                i.putExtra("groupname",name);
+                TextView tv = (TextView) view.findViewById(R.id.contact_name);
+                String name = tv.getText().toString();
+                Intent i = new Intent(getActivity(), MessageActivity.class);
+                i.putExtra("groupname", name);
                 startActivity(i);
 
             }
@@ -210,7 +212,23 @@ int k=0;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.adduser) {
+        if (item.getItemId() == R.id.refresh) {
+
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("storeInfo", Context.MODE_PRIVATE);
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove("isPopulated");
+            // editor.putBoolean("isPopulated", true);
+            DatabaseScema scema= new DatabaseScema(getActivity());
+            al=scema.getAllContacts();
+            adapter= new ContactAdapter(getActivity(),R.layout.single_row_contact);
+            adapter.addAll(al);
+            lv.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+
+
+            editor.commit();
+        } else if (item.getItemId() == R.id.adduser) {
             Toast.makeText(getContext(), " add user", Toast.LENGTH_LONG).show();
 
             LinearLayout layout = new LinearLayout(getActivity());
@@ -241,10 +259,10 @@ int k=0;
                 public void onClick(DialogInterface dialog, int which) {
                     m_text = name.getText().toString();
                     number = no.getText().toString();
-                    if(m_text.equals("")||number.equals("")){
-                        Toast.makeText(getContext(),"Name or Number Can't be Empty",Toast.LENGTH_LONG).show();
+                    if (m_text.equals("") || number.equals("")) {
+                        Toast.makeText(getContext(), "Name or Number Can't be Empty", Toast.LENGTH_LONG).show();
 
-                    }else{
+                    } else {
                         //add it in database
 
                     }
@@ -268,6 +286,13 @@ int k=0;
         super.onViewStateRestored(savedInstanceState);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -281,12 +306,5 @@ int k=0;
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-
     }
 }

@@ -14,35 +14,42 @@ import android.widget.Toast;
 import com.example.shibli.databse.DatabaseScema;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class SelectContactsFromList extends AppCompatActivity {
     ListView lv;
-    ArrayList<Integer> checkedPositions;
+     TreeSet<Integer> checkedPositions;
     ArrayList<ContactDetail> al;
-    static int c=0;
+     int c = 0;
     String Name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Toast.makeText(SelectContactsFromList.this,"select Activity called",Toast.LENGTH_LONG).show();
         setContentView(R.layout.activity_select_contacts_from_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        lv= (ListView) findViewById(R.id.select_listView);
-        final MySelectAdapter adapter= new MySelectAdapter(SelectContactsFromList.this,R.layout.single_row_select);
-       lv.setAdapter(adapter);
-        DatabaseScema scema= new DatabaseScema(SelectContactsFromList.this);
-        al=  scema.getAllContacts();
+        lv = (ListView) findViewById(R.id.select_listView);
+        final MySelectAdapter adapter = new MySelectAdapter(SelectContactsFromList.this, R.layout.single_row_select);
+        lv.setAdapter(adapter);
+        DatabaseScema scema = new DatabaseScema(SelectContactsFromList.this);
+        al = scema.getAllContacts();
+        String name = getIntent().getExtras().getString("groupname");
+        Name = name;
+
+  ArrayList<ContactDetail> added=scema.getGroupMembers(Name);
+        if(added!=null &&al!=null)
+       al.removeAll(added);
 
 
-        for (ContactDetail contactDetail:al){
+        for (ContactDetail contactDetail : al) {
             adapter.add(new SelectInformation(contactDetail.name));
         }
-String name=getIntent().getExtras().getString("groupname");
-        Name=name;
 
-         checkedPositions = new ArrayList<Integer>();
+
+        checkedPositions = new TreeSet<Integer>();
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -51,24 +58,23 @@ String name=getIntent().getExtras().getString("groupname");
 
 
                 CheckBox cb = (CheckBox) view.findViewById(R.id.checkBox1);
-                cb.setChecked(cb.isChecked()?false:true);
-                if(cb.isChecked()){
+                cb.setChecked(cb.isChecked() ? false : true);
+                if (cb.isChecked()) {
                     c++;
+                } else {
+                    c--;
                 }
-                else{c--;}
-                getSupportActionBar().setTitle(c +" selected");
-
-
+                getSupportActionBar().setTitle(c + " selected");
 
 
                 if (cb.isChecked()) {
 
                     checkedPositions.add(position); // add position of the row
-                    adapter.getItem(position).isSelected=true;
+                    adapter.getItem(position).isSelected = true;
                     // when checkbox is checked
                 } else {
 
-                    adapter.getItem(position).isSelected=false;
+                    adapter.getItem(position).isSelected = false;
 
                     checkedPositions.remove(position); // remove the position when the
                     // checkbox is unchecked
@@ -78,12 +84,11 @@ String name=getIntent().getExtras().getString("groupname");
         });
 
 
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-     menu.add("Done");
+        menu.add("Done");
 
 
         return super.onCreateOptionsMenu(menu);
@@ -91,13 +96,14 @@ String name=getIntent().getExtras().getString("groupname");
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-      Toast.makeText(SelectContactsFromList.this,c+ "Member Added",Toast.LENGTH_LONG).show();
-        DatabaseScema scema= new DatabaseScema(SelectContactsFromList.this);
+        Toast.makeText(SelectContactsFromList.this, checkedPositions.size() + "Member Added", Toast.LENGTH_LONG).show();
+        DatabaseScema scema = new DatabaseScema(SelectContactsFromList.this);
 
-      for(int i:checkedPositions) {
-         scema.insertIntoGroupMemberTable(al.get(i),Name);
 
-      }
+        for (int i : checkedPositions) {
+            scema.insertIntoGroupMemberTable(al.get(i), Name);
+
+        }
 
 
         return super.onOptionsItemSelected(item);

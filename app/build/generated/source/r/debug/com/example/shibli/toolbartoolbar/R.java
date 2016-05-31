@@ -2298,10 +2298,10 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f0c0057;
         public static final int action_mode_bar_stub=0x7f0c0056;
         public static final int action_mode_close_button=0x7f0c003c;
-        public static final int action_settings=0x7f0c0096;
+        public static final int action_settings=0x7f0c0095;
         public static final int activity_chooser_view_content=0x7f0c003d;
         public static final int addgroup=0x7f0c009a;
-        public static final int addmembers=0x7f0c0095;
+        public static final int addmembers=0x7f0c0096;
         public static final int adduser=0x7f0c0098;
         public static final int alertTitle=0x7f0c0049;
         public static final int always=0x7f0c0033;

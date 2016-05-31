@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -71,6 +72,7 @@ public class GroupFragment extends Fragment {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        adapter= new GroupAdapter(getContext(),R.layout.single_row_contact);
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -109,9 +111,11 @@ public class GroupFragment extends Fragment {
                        else{
                         scema.insertGroupTable(groupName);
                         Group g=scema.getGroup(groupName);
+                            Log.e("Samsjsjhs",g.getGroupName()+"  "+g.groupId);
 
 
-                        adapter.add(g);}
+                        adapter.add(g);
+                        }
 
                     }
                 }
@@ -172,13 +176,37 @@ public class GroupFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+    }
+
+
+
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p/>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         adapter= new GroupAdapter(getActivity(),R.layout.single_row_contact);
 
         lv = (ListView) view.findViewById(R.id.group_listView);
         lv.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_NORMAL);
 
         lv.setAdapter(adapter);
-         scema= new DatabaseScema(getActivity());
+        scema= new DatabaseScema(getActivity());
         TreeSet<Group> ts=scema.getAllGroup();
         for (Group groupName:ts){
             adapter.add(groupName);
@@ -187,10 +215,10 @@ public class GroupFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i= new Intent(getActivity(),MessageActivity.class);
-TextView tv= (TextView) view.findViewById(R.id.contact_name);
+                TextView tv= (TextView) view.findViewById(R.id.contact_name);
 
 
-               String groupName=tv.getText().toString();
+                String groupName=tv.getText().toString();
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 //lv.setAdapter(new GroupAdapter(getActivity(),R.layout.single_row_contact));
                 i.putExtra("groupname",groupName);
@@ -206,7 +234,7 @@ TextView tv= (TextView) view.findViewById(R.id.contact_name);
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
                 final CharSequence[] items = {
-                        "View Group", "Delete Group", "Rename group", "Add Contacts","Rename group"
+                        "View Group", "Delete Group", "Rename group", "Add Contacts", "Rename group"
                 };
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -216,8 +244,8 @@ TextView tv= (TextView) view.findViewById(R.id.contact_name);
                         // Do something with the selection
                         switch (item) {
                             case 0: {
-                                Intent i= new Intent(getActivity(),GroupmembersActivity.class);
-                                i.putExtra("name",adapter.getItem(position).getGroupName());
+                                Intent i = new Intent(getActivity(), GroupmembersActivity.class);
+                                i.putExtra("name", adapter.getItem(position).getGroupName());
                                 startActivity(i);
                                 break;
                             }
@@ -252,24 +280,5 @@ TextView tv= (TextView) view.findViewById(R.id.contact_name);
                 return true;
             }
         });
-
-
-    }
-
-
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 }
